@@ -88,6 +88,8 @@ class CXRImageDataset(torchvision.datasets.VisionDataset):
     def select_valid_labels(self):
         self.dataset_metadata[XRAY_TIME] = self.dataset_metadata[XRAY_TIME].apply(lambda time: dt.strptime(time, "%Y-%m-%d %H:%M:%S"))
         self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata.groupby([PATIENT_ID, ADMIT_TIME])[XRAY_TIME].idxmax()] # select for patients' last image only
+        # self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata.groupby([PATIENT_ID, ADMIT_TIME])[XRAY_TIME].idxmin()] # select for patients' first image only
+        # self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata.groupby([PATIENT_ID, ADMIT_TIME])[XRAY_TIME].apply(lambda x: x.sample(1))] # TODO: [MUST CHECK THAT THIS IS CORRECT] select random image from patient's visit
 
         self.dataset_metadata = self.dataset_metadata.reset_index(drop=True)
         self.image_ids = self.dataset_metadata[self.data_key]

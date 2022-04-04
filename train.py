@@ -34,6 +34,7 @@ parser.add_argument('--output_channels', default=1, type=int,
 parser.add_argument('--model_architecture', default='resnet256_6_2_1', type=str,
                     help='Neural network architecture to be used')
 
+parser.add_argument('--experiment_name', type=str, help='name of experiment being run')
 parser.add_argument('--data_dir', type=str,
 					default='/data/vision/polina/scratch/ruizhi/chestxray/data/png_16bit_256/',
 					help='The image data directory')

@@ -39,6 +39,7 @@ parser.add_argument('--dataset_metadata', type=str,
 					help='The metadata for the model training ')
 parser.add_argument('--save_dir', type=str,
 					default='/data/vision/polina/scratch/bting/outcomes_chestxray/training/')
+parser.add_argument('--experiment_name', type=str)
 parser.add_argument('--checkpoint_name', type=str,
 					default='pytorch_model_epoch300.bin')
 
@@ -58,7 +59,7 @@ def eval(all_epochs=-1):
 	Create a sub-directory under save_dir 
 	based on the label key
 	'''
-	args.save_dir = os.path.join(args.save_dir, args.model_architecture+'_'+args.label_key)
+	args.save_dir = os.path.join(args.save_dir, args.model_architecture+'_'+args.label_key, args.experiment_name)
 	
 	checkpoint_path = os.path.join(args.save_dir, args.checkpoint_name)
 

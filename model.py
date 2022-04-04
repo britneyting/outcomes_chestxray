@@ -134,7 +134,7 @@ class ModelManager:
 					logger.info(f"loss: {loss.item()}")
 					logger.info(f"pred_logits: {pred_logits}")
 					logger.info(f"labels: {labels}")
-			self.model.save_pretrained(args.save_dir, epoch=epoch + 1)
+			self.model.save_pretrained(os.path.join(args.save_dir, args.experiment_name), epoch=epoch + 1)
 			interval = time.time() - start_time
 
 			training_losses.append(epoch_loss)
@@ -146,7 +146,7 @@ class ModelManager:
 		plt.plot(range(len(training_losses)), training_losses, color='red', label='Training loss')
 		plt.xlabel('Epoch')
 		plt.ylabel('Training Loss')
-		plt.savefig("training_loss_per_epoch.png", bbox_inches="tight")
+		plt.savefig(f"{args.experiment_name.upper()}_training_loss_per_epoch.png", bbox_inches="tight")
 		return
 
 	def eval(self, device, args, checkpoint_path):
