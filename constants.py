@@ -9,6 +9,7 @@ READMISSION_TIME = "readmission_time"
 
 ### METADATA FILENAMES ###
 OUTCOMES_DATA_FOLDER = "/data/vision/polina/projects/chestxray/bting/outcomes_chestxray/outcomes_data"
+CROSS_VALIDATION_FOLDER = OUTCOMES_DATA_FOLDER + "/cross_validation_data"
 ALL_METADATA_FILENAME = OUTCOMES_DATA_FOLDER + "/mimic_xrays_outcome.csv"
 TRAIN_METADATA_FILENAME = OUTCOMES_DATA_FOLDER + "/mimic_xrays_outcome_train.csv"
 TEST_METADATA_FILENAME = OUTCOMES_DATA_FOLDER + "/mimic_xrays_outcome_test.csv"

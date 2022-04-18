@@ -13,6 +13,7 @@ import json
 import torch
 
 from constants import TEST_METADATA_FILENAME
+import matplotlib.pyplot as plt
 from model import ModelManager
 
 current_dir = os.path.dirname(__file__)
@@ -92,6 +93,10 @@ def eval(all_epochs=-1):
 				aucs_all_epochs.append(eval_results['aucs'][0])
 
 		print(f"All epochs AUCs: {aucs_all_epochs}")
+		plt.plot(range(all_epochs), aucs_all_epochs, color='red', label='Validation AUC')
+		plt.xlabel('Epoch')
+		plt.ylabel('Validation AUC')
+		plt.savefig(f"{args.experiment_name.upper()}_validation_AUC_per_epoch.png", bbox_inches="tight")
 
 		eval_results_all={}
 		eval_results_all['ordinal_aucs']=aucs_all_epochs
@@ -99,4 +104,5 @@ def eval(all_epochs=-1):
 		with open(results_path, 'w') as fp:
 			json.dump(eval_results_all, fp)
 
-eval(all_epochs=-1)
+# eval(all_epochs=-1)
+eval(all_epochs=300)

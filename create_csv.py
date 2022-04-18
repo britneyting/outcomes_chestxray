@@ -13,7 +13,7 @@ import os
 from datetime import datetime as dt
 from tabnanny import check
 import pandas as pd
-from sklearn.model_selection import GroupShuffleSplit
+from sklearn.model_selection import GroupShuffleSplit, GroupKFold
 
 from constants import *
 
@@ -126,3 +126,23 @@ def check_all_images_available(files: list):
 
 # check_all_images_available([TRAIN_METADATA_FILENAME, TEST_METADATA_FILENAME])
 
+def create_cross_validation_data(filename: str, n_splits=5):
+    df = pd.read_csv(filename)
+    splitter = GroupKFold(n_splits=n_splits)
+    split = splitter.split(df, groups=df[PATIENT_ID])
+    kfolds = list(split)
+    i = 1
+    for train_inds, validation_inds in kfolds:
+        train_df = df.iloc[train_inds]
+        validation_df = df.iloc[validation_inds]
+            
+        train_df.to_csv(os.path.join(CROSS_VALIDATION_FOLDER, f"train_fold_{i}.csv"), index=False)
+        validation_df.to_csv(os.path.join(CROSS_VALIDATION_FOLDER, f"validation_fold_{i}.csv"), index=False)
+        i += 1
+
+    for j in range(1, n_splits+1):
+        TRAIN_FOLD_J_FILENAME = os.path.join(CROSS_VALIDATION_FOLDER, f"train_fold_{j}.csv")
+        VALIDATION_FOLD_J_FILENAME = os.path.join(CROSS_VALIDATION_FOLDER, f"validation_fold_{j}.csv")
+        assert(check_no_crossing_ids(TRAIN_FOLD_J_FILENAME, VALIDATION_FOLD_J_FILENAME))
+
+# create_cross_validation_data(TRAIN_METADATA_FILENAME)
