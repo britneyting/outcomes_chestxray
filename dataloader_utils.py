@@ -69,7 +69,7 @@ class CXRImageDataset(torchvision.datasets.VisionDataset):
 
         days, _, time = label.split(" ")
         hours, minutes, seconds = time.split(":")
-        label = int(int(days) < 30)
+        label = int(int(days) < 8)
 
         if self.cache:
             img = self.images[str(idx)]
