@@ -92,7 +92,7 @@ class CXRImageDataset(torchvision.datasets.VisionDataset):
         # self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata.groupby([PATIENT_ID, ADMIT_TIME])[XRAY_TIME].idxmin()] # select for patients' first image only
         # self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata.groupby([PATIENT_ID, ADMIT_TIME])[XRAY_TIME].apply(lambda x: x.sample(1))] # TODO: [MUST CHECK THAT THIS IS CORRECT] select random image from patient's visit
         # XRAY_TIMEDELTA_BEFORE_DISCHARGE = self.dataset_metadata[DISCHARGE_TIME] - self.dataset_metadata[XRAY_TIME]
-        self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata[XRAY_TIME] >= self.dataset_metadata[DISCHARGE_TIME] - pd.Timedelta(days=2)] # select for xrays that were taken at most 48 hours prior to discharge
+        self.dataset_metadata = self.dataset_metadata.loc[self.dataset_metadata[XRAY_TIME] >= self.dataset_metadata[DISCHARGE_TIME] - pd.Timedelta(days=1)] # select for xrays that were taken at most 48 hours prior to discharge
 
         self.dataset_metadata = self.dataset_metadata.reset_index(drop=True)
         self.image_ids = self.dataset_metadata[self.data_key]
