@@ -70,9 +70,9 @@ def preprocess_data():
                     xray_datetime = dt.strptime(str(xray['StudyDate']) + " 000" + str(xray['StudyTime']).split(".")[0], DATETIME_FORMAT_FOR_XRAYS)
                 if admit_time <= xray_datetime <= discharge_time:
                     hadm_id = admission_info.iloc[i][HADM_ID]
-                    readmission_data.append([id, hadm_id, study_id, discharge_dicom_id, xray_datetime, admit_time, readmission_time])
+                    readmission_data.append([id, hadm_id, study_id, discharge_dicom_id, xray_datetime, admit_time, discharge_time, readmission_time])
 
-    readmission_df = pd.DataFrame(readmission_data, columns = [PATIENT_ID, HADM_ID, STUDY_ID, DICOM_ID, XRAY_TIME, ADMIT_TIME, READMISSION_TIME])
+    readmission_df = pd.DataFrame(readmission_data, columns = [PATIENT_ID, HADM_ID, STUDY_ID, DICOM_ID, XRAY_TIME, ADMIT_TIME, DISCHARGE_TIME, READMISSION_TIME])
     readmission_df.to_csv(ALL_METADATA_FILENAME, index=False)
 
     return readmission_df

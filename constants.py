@@ -5,6 +5,7 @@ STUDY_ID = "study_id"
 DICOM_ID = "dicom_id"
 XRAY_TIME = "xray_time"
 ADMIT_TIME = "admittime"
+DISCHARGE_TIME = "discharge_time"
 READMISSION_TIME = "readmission_time"
 
 ### METADATA FILENAMES ###
